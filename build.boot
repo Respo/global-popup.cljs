@@ -21,11 +21,11 @@
 (def +version+ "0.1.0")
 
 (task-options!
-  pom {:project     'respo/global-pop
+  pom {:project     'respo/global-popup
        :version     +version+
        :description "Workflow"
-       :url         "https://github.com/Respo/global-pop"
-       :scm         {:url "https://github.com/Respo/global-pop"}
+       :url         "https://github.com/Respo/global-popup"
+       :scm         {:url "https://github.com/Respo/global-popup"}
        :license     {"MIT" "http://opensource.org/licenses/mit-license.php"}})
 
 (defn use-text [x] {:attrs {:innerHTML x}})
@@ -65,7 +65,7 @@
     (start-stack-editor!)
     (target :dir #{"src/"})
     (html-file :data {:build? false})
-    (reload :on-jsload 'respo-global-pop.main/on-jsload!
+    (reload :on-jsload 'global-popup.main/on-jsload!
             :cljs-asset-path ".")
     (cljs :compiler-options {:language-in :ecmascript5})
     (target)))
@@ -87,7 +87,7 @@
 
 (deftask rsync []
   (with-pre-wrap fileset
-    (sh "rsync" "-r" "target/" "respo.site:repo/Respo/global-pop" "--exclude" "main.out" "--delete")
+    (sh "rsync" "-r" "target/" "respo.site:repo/Respo/global-popup" "--exclude" "main.out" "--delete")
     fileset))
 
 (deftask build []
@@ -110,4 +110,4 @@
     :source-paths #{"src" "test"})
   (comp
     (watch)
-    (test :namespaces '#{respo-global-pop.test})))
+    (test :namespaces '#{global-popup.test})))

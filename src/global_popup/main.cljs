@@ -1,12 +1,25 @@
 
-(ns respo-global-pop.main
+(ns global-popup.main
   (:require [respo.core :refer [render! clear-cache!]]
-            [respo-global-pop.comp.container :refer [comp-container]]
-            [cljs.reader :refer [read-string]]))
+            [global-popup.comp.container :refer [comp-container]]
+            [cljs.reader :refer [read-string]]
+            [global-popup.updater.popup :as popup]))
 
-(defn dispatch! [op op-data])
+(defn updater [store op op-data]
+  (case
+    op
+    :popup/add
+    (popup/add-one store op-data)
+    :popup/drop
+    (popup/drop-one store op-data)
+    store))
 
 (defonce store-ref (atom {}))
+
+(defn dispatch! [op op-data]
+  (println op op-data)
+  (let [new-store (updater @store-ref op op-data)]
+    (reset! store-ref new-store)))
 
 (defonce states-ref (atom {}))
 

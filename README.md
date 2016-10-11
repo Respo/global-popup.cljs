@@ -1,5 +1,5 @@
 
-Respo Global Pop
+Respo Global Popup
 ----
 
 Modal and popup component for Respo apps.
@@ -7,7 +7,7 @@ Modal and popup component for Respo apps.
 ### Usage
 
 ```clojure
-[respo/global-pop "0.1.0"]
+[respo/global-popup "0.1.0"]
 ```
 
 ### Develop
