@@ -80,7 +80,8 @@ To create a new modal or popover, just dispatch actions like:
       :popup/add
       {:name :demo,
        :type :popover,
-       :position {:y (.-clientY event), :x (.-clientX event)}})))
+       :position
+       {:y (.-clientY event), :w 320, :h 160, :x (.-clientX event)}})))
 ```
 
 Actions for closing them are dispatched from the given component. However, there's special case, if you want to close popovers by clicking the body of the page, you need to add these lines:

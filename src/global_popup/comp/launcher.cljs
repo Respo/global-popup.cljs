@@ -14,7 +14,8 @@
       :popup/add
       {:name :demo,
        :type :popover,
-       :position {:y (.-clientY event), :x (.-clientX event)}})))
+       :position
+       {:y (.-clientY event), :w 320, :h 160, :x (.-clientX event)}})))
 
 (def style-bar {:padding "8px 16px"})
 
