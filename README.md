@@ -11,7 +11,7 @@ Demo http://repo.respo.site/global-popup/
 [![Clojars Project](https://img.shields.io/clojars/v/respo/global-popup.svg)](https://clojars.org/respo/global-popup)
 
 ```clojure
-[respo/global-popup "0.1.0"]
+[respo/global-popup "0.1.1"]
 ```
 
 This popup library contains **modal** and **popover** since these two are coupled from each other. The design of this library is inherited from [routed-modal](https://github.com/origami-ui/routed-modal) which is a React.hs library.
