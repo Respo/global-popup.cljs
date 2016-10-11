@@ -1,6 +1,6 @@
 
 (ns global-popup.schema)
 
-(def popup {:id nil, :kind :modal, :position nil, :data nil})
+(def popup {:name nil, :type :modal, :id nil, :position nil, :data nil})
 
 (def store {:popups []})

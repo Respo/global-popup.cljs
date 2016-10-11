@@ -6,6 +6,7 @@
                  [adzerk/boot-reload        "0.4.12"      :scope "test"]
                  [cirru/boot-stack-server   "0.1.13"      :scope "test"]
                  [adzerk/boot-test          "1.1.2"       :scope "test"]
+                 [respo/value               "0.1.6"       :scope "test"]
                  [mvc-works/hsl             "0.1.2"]
                  [respo/ui                  "0.1.2"]
                  [respo                     "0.3.25"]])
@@ -33,7 +34,7 @@
   (make-html
     (html {}
       (head {}
-        (title (use-text "Global Pop for Respo"))
+        (title (use-text "Global Popup for Respo"))
         (link {:attrs {:rel "icon" :type "image/png" :href "http://logo.respo.site/respo.png"}})
         (meta'{:attrs {:charset "utf-8"}})
         (meta' {:attrs {:name "viewport" :content "width=device-width, initial-scale=1"}})

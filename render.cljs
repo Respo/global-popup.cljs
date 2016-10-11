@@ -11,7 +11,7 @@
   (make-html
     (html {}
       (head {}
-        (title (use-text (str "Global Pop for Respo")))
+        (title (use-text (str "Global Popup for Respo")))
         (link {:attrs {:rel "icon" :type "image/png" :href "http://logo.respo.site/respo.png"}})
         (meta' {:attrs {:charset "utf-8"}})
         (meta' {:attrs {:name "viewport" :content "width=device-width, initial-scale=1"}})
