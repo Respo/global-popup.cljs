@@ -1,13 +1,14 @@
 
 (ns global-popup.router.popup
   (:require [respo.alias :refer [div]]
-            [respo.comp.text :refer [comp-text]]))
+            [respo.comp.text :refer [comp-text]]
+            [global-popup.comp.launcher :refer [comp-launcher]]))
 
 (defn render-modal [popup]
   (case
     (:name popup)
     :demo
-    (div {} (comp-text "demo" nil))
+    (div {} (comp-text "demo" nil) (comp-launcher))
     (comp-text (pr-str popup) nil)))
 
 (defn render-popover [popup]

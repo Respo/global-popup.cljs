@@ -39,7 +39,9 @@
   (.addEventListener
     js/window
     "click"
-    (fn [event] (dispatch! :popup/clear-float nil)))
+    (fn [event]
+      (if (not (empty? (:popups @store-ref)))
+        (dispatch! :popup/clear-float nil))))
   (println "app started!"))
 
 (defn on-jsload! []

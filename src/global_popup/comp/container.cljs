@@ -7,36 +7,14 @@
             [respo.comp.text :refer [comp-text]]
             [global-popup.comp.popup-stack :refer [comp-popup-stack]]
             [respo-value.comp.value :refer [render-value]]
-            [global-popup.router.popup :refer [render-popup]]))
-
-(defn on-modal-add [e dispatch!]
-  (dispatch! :popup/add {:name :demo, :type :modal}))
-
-(defn on-popover-add [e dispatch!]
-  (let [event (:original-event e)]
-    (.stopPropagation event)
-    (dispatch!
-      :popup/add
-      {:name :demo,
-       :type :popover,
-       :position {:y (.-clientY event), :x (.-clientX event)}})))
-
-(def style-bar {:padding "8px 16px"})
+            [global-popup.router.popup :refer [render-popup]]
+            [global-popup.comp.launcher :refer [comp-launcher]]))
 
 (defn render [store]
   (fn [state mutate!]
     (div
       {:style (merge ui/global)}
-      (div
-        {:style style-bar}
-        (div
-          {:style ui/button, :event {:click on-modal-add}}
-          (comp-text "add modal" nil)))
-      (div
-        {:style style-bar}
-        (div
-          {:style ui/button, :event {:click on-popover-add}}
-          (comp-text "add popup" nil)))
+      (comp-launcher)
       (comp-popup-stack (:popups store) render-popup)
       (render-value (last (:popups store))))))
 

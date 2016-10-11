@@ -3,7 +3,7 @@
   (:require
     [respo.alias :refer [html head title script style meta' div link body]]
     [respo.render.html :refer [make-html make-string]]
-    [stack-workflow.comp.container :refer [comp-container]]
+    [global-popup.comp.container :refer [comp-container]]
     [planck.core :refer [spit]]))
 
 (defn use-text [x] {:attrs {:innerHTML x}})
