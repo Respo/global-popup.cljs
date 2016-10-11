@@ -4,25 +4,25 @@
             [respo.comp.text :refer [comp-text]]
             [global-popup.comp.launcher :refer [comp-launcher]]))
 
-(defn render-modal [popup]
+(defn inside-modal [popup]
   (case
     (:name popup)
     :demo
-    (div {} (comp-text "demo" nil) (comp-launcher))
+    (div {} (comp-launcher))
     (comp-text (pr-str popup) nil)))
 
-(defn render-popover [popup]
+(defn inside-popover [popup]
   (case
     (:name popup)
     :demo
-    (div {} (comp-text "demo" nil))
+    (div {} (comp-launcher))
     (comp-text (pr-str popup) nil)))
 
-(defn render-popup [popup]
+(defn inside-popup [popup]
   (case
     (:type popup)
     :popover
-    (render-popover popup)
+    (inside-popover popup)
     :modal
-    (render-modal popup)
+    (inside-modal popup)
     (comp-text (pr-str popup) nil)))

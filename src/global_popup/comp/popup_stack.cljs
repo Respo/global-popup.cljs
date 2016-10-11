@@ -51,7 +51,7 @@
     :height 0,
     :left 0}))
 
-(defn render [popups render-popup]
+(defn render [popups inside-popup]
   (fn [state mutate!]
     (div
       {}
@@ -63,9 +63,9 @@
                              (case
                                (:type popup)
                                :popover
-                               (render-popover popup render-popup)
+                               (render-popover popup inside-popup)
                                :modal
-                               (render-modal popup render-popup)
+                               (render-modal popup inside-popup)
                                nil)]))
           (into []))
         [(count popups)

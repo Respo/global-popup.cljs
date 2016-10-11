@@ -15,10 +15,10 @@
    {:box-shadow (str "1px 1px 8px " (hsl 0 0 10 0.4)),
     :transform "scale(1)",
     :background-color (hsl 0 0 100 0.9),
-    :width 120,
+    :width 400,
     :position "fixed",
     :border-radius "2px",
-    :height 40}))
+    :height 120}))
 
 (def style-modal
  (merge
