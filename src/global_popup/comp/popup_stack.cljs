@@ -9,6 +9,7 @@
    ui/center
    {:transform "scale(0)",
     :top 0,
+    :overflow "auto",
     :width 0,
     :transition-timing-function "ease-in-out",
     :position "fixed",
