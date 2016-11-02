@@ -1,5 +1,5 @@
 
-(ns global-popup.util)
+(ns global-popup.util )
 
 (def old-id-ref (atom 0))
 

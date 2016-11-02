@@ -8,22 +8,17 @@
             [global-popup.util :refer [gen-id!]]))
 
 (defn updater [store op op-data op-id]
-  (case
-    op
-    :popup/add
-    (popup/add-one store op-data op-id)
-    :popup/drop
-    (popup/drop-one store op-data op-id)
-    :popup/clear-float
-    (popup/clear-float store op-data op-id)
+  (case op
+    :popup/add (popup/add-one store op-data op-id)
+    :popup/drop (popup/drop-one store op-data op-id)
+    :popup/clear-float (popup/clear-float store op-data op-id)
     store))
 
 (defonce store-ref (atom schema/store))
 
 (defn dispatch! [op op-data]
   (println op op-data)
-  (let [new-store (updater @store-ref op op-data (gen-id!))]
-    (reset! store-ref new-store)))
+  (let [new-store (updater @store-ref op op-data (gen-id!))] (reset! store-ref new-store)))
 
 (defonce states-ref (atom {}))
 
@@ -37,16 +32,11 @@
   (add-watch store-ref :changes render-app!)
   (add-watch states-ref :changes render-app!)
   (.addEventListener
-    js/window
-    "click"
-    (fn [event]
-      (if (not (empty? (:popups @store-ref)))
-        (dispatch! :popup/clear-float nil))))
+   js/window
+   "click"
+   (fn [event] (if (not (empty? (:popups @store-ref))) (dispatch! :popup/clear-float nil))))
   (println "app started!"))
 
-(defn on-jsload! []
-  (clear-cache!)
-  (render-app!)
-  (println "code update."))
+(defn on-jsload! [] (clear-cache!) (render-app!) (println "code update."))
 
 (set! (.-onload js/window) -main!)

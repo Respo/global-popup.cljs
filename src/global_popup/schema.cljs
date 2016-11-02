@@ -1,5 +1,5 @@
 
-(ns global-popup.schema)
+(ns global-popup.schema )
 
 (def popup {:name nil, :type :modal, :id nil, :position nil, :data nil})
 

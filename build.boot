@@ -4,12 +4,12 @@
                  [org.clojure/clojure       "1.8.0"       :scope "test"]
                  [adzerk/boot-cljs          "1.7.228-1"   :scope "test"]
                  [adzerk/boot-reload        "0.4.12"      :scope "test"]
-                 [cirru/boot-stack-server   "0.1.13"      :scope "test"]
+                 [cirru/boot-stack-server   "0.1.19"      :scope "test"]
                  [adzerk/boot-test          "1.1.2"       :scope "test"]
                  [respo/value               "0.1.6"       :scope "test"]
                  [mvc-works/hsl             "0.1.2"]
                  [respo/ui                  "0.1.2"]
-                 [respo                     "0.3.25"]])
+                 [respo                     "0.3.28"]])
 
 (require '[adzerk.boot-cljs   :refer [cljs]]
          '[adzerk.boot-reload :refer [reload]]
@@ -58,13 +58,17 @@
         (add-resource tmp)
         (commit!)))))
 
+(deftask editor! []
+  (comp
+    (repl)
+    (start-stack-editor!)
+    (target :dir #{"src/"})))
+
 (deftask dev! []
   (set-env!
     :asset-paths #{"assets/"})
   (comp
-    (repl)
-    (start-stack-editor!)
-    (target :dir #{"src/"})
+    (editor!)
     (html-file :data {:build? false})
     (reload :on-jsload 'global-popup.main/on-jsload!
             :cljs-asset-path ".")

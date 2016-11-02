@@ -13,9 +13,9 @@
 (defn render [store]
   (fn [state mutate!]
     (div
-      {:style (merge ui/global)}
-      (comp-launcher)
-      (comp-popup-stack (:popups store) inside-popup)
-      (render-value (last (:popups store))))))
+     {:style (merge ui/global)}
+     (comp-launcher)
+     (comp-popup-stack (:popups store) inside-popup)
+     (render-value (last (:popups store))))))
 
 (def comp-container (create-comp :container render))
