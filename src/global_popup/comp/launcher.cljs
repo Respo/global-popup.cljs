@@ -1,31 +1,29 @@
 
 (ns global-popup.comp.launcher
-  (:require [respo.alias :refer [create-comp div]]
-            [respo-ui.style :as ui]
-            [respo.comp.text :refer [comp-text]]))
+  (:require-macros [respo.macros :refer [defcomp <> div span]])
+  (:require [respo.core :refer [create-comp]] [respo-ui.style :as ui]))
 
-(defn on-modal-add [e dispatch!] (dispatch! :popup/add {:name :demo, :type :modal}))
+(def style-bar {:padding "8px 16px"})
 
 (defn on-popover-add [e dispatch!]
   (let [event (:original-event e)]
     (.stopPropagation event)
     (dispatch!
      :popup/add
-     {:name :demo,
-      :type :popover,
-      :position {:y (.-clientY event), :w 320, :h 160, :x (.-clientX event)}})))
+     {:type :popover,
+      :name :demo,
+      :position {:x (.-clientX event), :y (.-clientY event), :w 320, :h 160}})))
 
-(def style-bar {:padding "8px 16px"})
+(defn on-modal-add [e dispatch!] (dispatch! :popup/add {:type :modal, :name :demo}))
 
-(defn render []
-  (fn [state mutate!]
-    (div
-     {}
-     (div
-      {:style style-bar}
-      (div {:style ui/button, :event {:click on-modal-add}} (comp-text "add modal" nil)))
-     (div
-      {:style style-bar}
-      (div {:style ui/button, :event {:click on-popover-add}} (comp-text "add popup" nil))))))
-
-(def comp-launcher (create-comp :launcher render))
+(defcomp
+ comp-launcher
+ ()
+ (div
+  {}
+  (div
+   {:style style-bar}
+   (div {:style ui/button, :on {:click on-modal-add}} (<> "add modal")))
+  (div
+   {:style style-bar}
+   (div {:style ui/button, :on {:click on-popover-add}} (<> "add popup")))))

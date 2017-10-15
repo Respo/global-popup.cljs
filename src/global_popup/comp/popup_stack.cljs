@@ -1,50 +1,51 @@
 
 (ns global-popup.comp.popup-stack
-  (:require [respo.alias :refer [create-comp div]]
+  (:require-macros [respo.macros :refer [defcomp div <> span]])
+  (:require [respo.core :refer [create-comp]]
             [respo-ui.style :as ui]
             [hsl.core :refer [hsl]]))
-
-(def style-theme
-  (merge
-   ui/center
-   {:transform "scale(0)",
-    :top 0,
-    :overflow "auto",
-    :width 0,
-    :transition-timing-function "ease-in-out",
-    :position "fixed",
-    :transition-duration "400ms",
-    :height 0,
-    :left 0}))
 
 (def style-box
   {:background-color (hsl 0 0 100),
    :width 0,
+   :height 0,
    :transition-timing-function "ease-in-out",
-   :border-radius "2px",
    :transition-duration "400ms",
-   :height 0})
+   :border-radius "2px"})
 
 (defn on-backdrop [e dispatch!] (dispatch! :popup/drop nil))
+
+(def style-theme
+  (merge
+   ui/center
+   {:transition-duration "400ms",
+    :transition-timing-function "ease-in-out",
+    :transform "scale(0)",
+    :position "fixed",
+    :top 0,
+    :left 0,
+    :width 0,
+    :height 0,
+    :overflow "auto"}))
 
 (defn render-modal [popup render-popup]
   (div
    {:style (merge
             style-theme
-            {:transform "scale(1)",
-             :background-color (hsl 0 0 0 0.3),
+            {:background-color (hsl 0 0 0 0.3),
+             :transform "scale(1)",
              :width (.-innerWidth js/window),
              :height (.-innerHeight js/window)}),
-    :event {:click on-backdrop}}
+    :on {:click on-backdrop}}
    (div
     {:style (merge
              style-box
-             {:background-color (hsl 0 0 100),
-              :width 480,
-              :opacity 1,
+             {:width 480,
+              :height 160,
+              :background-color (hsl 0 0 100),
               :padding 16,
-              :height 160}),
-     :event {:click (fn [e dispatch!] )}}
+              :opacity 1}),
+     :on {:click (fn [e dispatch!] )}}
     (render-popup popup))))
 
 (defn render-popover [popup render-popup]
@@ -52,30 +53,30 @@
     (div
      {:style (merge
               style-theme
-              {:box-shadow (str "0 0 8px " (hsl 0 0 0 0.3)),
-               :transform "scale(1)",
+              {:left (:x position),
                :top (:y position),
                :width (:w position),
                :height (:h position),
-               :left (:x position)})}
+               :transform "scale(1)",
+               :box-shadow (str "0 0 8px " (hsl 0 0 0 0.3))})}
      (div
       {:style (merge style-box {:width (:w position), :height (:h position)})}
       (render-popup popup)))))
 
-(defn render [popups inside-popup]
-  (fn [state mutate!]
-    (div
-     {}
-     (conj
-      (->> popups
-           (map-indexed
-            (fn [idx popup]
-              [idx
-               (case (:type popup)
-                 :popover (render-popover popup inside-popup)
-                 :modal (render-modal popup inside-popup)
-                 nil)]))
-           (into []))
-      [(count popups) (div {:style (merge style-theme)} (div {:style (merge style-box)}))]))))
-
-(def comp-popup-stack (create-comp :popup-stack render))
+(defcomp
+ comp-popup-stack
+ (popups inside-popup)
+ (div
+  {}
+  (seq
+   (conj
+    (->> popups
+         (map-indexed
+          (fn [idx popup]
+            [idx
+             (case (:type popup)
+               :popover (render-popover popup inside-popup)
+               :modal (render-modal popup inside-popup)
+               nil)]))
+         (into []))
+    [(count popups) (div {:style (merge style-theme)} (div {:style (merge style-box)}))]))))
