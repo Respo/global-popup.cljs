@@ -19,11 +19,13 @@
     {:styles ["http://localhost:8100/main.css"],
      :scripts ["/main.js" "/browser/lib.js" "/browser/main.js"]})))
 
+(def preview? (= "preview" js/process.env.prod))
+
 (defn prod-page []
   (let [html-content (make-string (comp-container schema/store))
         webpack-info (.parse js/JSON (slurp "dist/webpack-manifest.json"))
         cljs-info (.parse js/JSON (slurp "dist/cljs-manifest.json"))
-        cdn (if previews? "" "http://repo-cdn.b0.upaiyun.com/coworkflow/")
+        cdn (if preview? "" "http://repo-cdn.b0.upaiyun.com/coworkflow/")
         prefix-cdn (fn [x] (str cdn x))]
     (make-page
      html-content
@@ -41,5 +43,3 @@
   (if (= js/process.env.env "dev")
     (spit "target/index.html" (dev-page))
     (spit "dist/index.html" (prod-page))))
-
-(def previews? (= "preview" js/process.env.prod))

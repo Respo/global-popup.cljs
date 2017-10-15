@@ -14,10 +14,11 @@
 (defcomp
  comp-container
  (reel)
- (let [store (:reel reel), states (:states store)]
+ (let [store (:store reel), states (:states store)]
    (div
     {:style (merge ui/global)}
     (comp-launcher)
     (comp-popup-stack (:popups store) inside-popup)
     (comp-value states (last (:popups store)))
+    (<> reel)
     (comp-reel reel {}))))
