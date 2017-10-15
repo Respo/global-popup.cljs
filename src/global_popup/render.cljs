@@ -25,7 +25,7 @@
   (let [html-content (make-string (comp-container schema/store))
         webpack-info (.parse js/JSON (slurp "dist/webpack-manifest.json"))
         cljs-info (.parse js/JSON (slurp "dist/cljs-manifest.json"))
-        cdn (if preview? "" "http://repo-cdn.b0.upaiyun.com/coworkflow/")
+        cdn (if preview? "" "http://repo-cdn.b0.upaiyun.com/global-popup/")
         prefix-cdn (fn [x] (str cdn x))]
     (make-page
      html-content
