@@ -7,7 +7,7 @@
 
 (def base-info
   {:title "Global Popup for Respo",
-   :icon "http://repo-cdn.b0.upaiyun.com/logo/respo.png",
+   :icon "http://cdn.tiye.me/logo/respo.png",
    :ssr nil,
    :inline-html nil})
 
@@ -25,13 +25,13 @@
   (let [html-content (make-string (comp-container schema/store))
         webpack-info (.parse js/JSON (slurp "dist/webpack-manifest.json"))
         cljs-info (.parse js/JSON (slurp "dist/cljs-manifest.json"))
-        cdn (if preview? "" "http://repo-cdn.b0.upaiyun.com/global-popup/")
+        cdn (if preview? "" "http://cdn.tiye.me/global-popup/")
         prefix-cdn (fn [x] (str cdn x))]
     (make-page
      html-content
      (merge
       base-info
-      {:styles ["http://repo-cdn.b0.upaiyun.com/favored-fonts/main.css"
+      {:styles ["http://cdn.tiye.me/favored-fonts/main.css"
                 (prefix-cdn (aget webpack-info "main.css"))],
        :scripts (map
                  prefix-cdn
