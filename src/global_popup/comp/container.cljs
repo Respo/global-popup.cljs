@@ -1,9 +1,8 @@
 
 (ns global-popup.comp.container
-  (:require-macros [respo.macros :refer [defcomp <> cursor-> div span]])
   (:require [hsl.core :refer [hsl]]
-            [respo-ui.style :as ui]
-            [respo.core :refer [create-comp]]
+            [respo-ui.core :as ui]
+            [respo.macros :refer [defcomp <> cursor-> div span]]
             [respo.comp.space :refer [=<]]
             [global-popup.comp.popup-stack :refer [comp-popup-stack]]
             [respo-value.comp.value :refer [comp-value]]
@@ -19,6 +18,6 @@
     {:style (merge ui/global)}
     (comp-launcher)
     (comp-popup-stack (:popups store) inside-popup)
-    (comp-value states (last (:popups store)))
+    (comp-value states (last (:popups store)) 0)
     (<> reel)
-    (comp-reel reel {}))))
+    (cursor-> :reel comp-reel states reel {}))))

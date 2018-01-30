@@ -1,9 +1,10 @@
 
 (ns global-popup.comp.popup-stack
-  (:require-macros [respo.macros :refer [defcomp div <> span]])
-  (:require [respo.core :refer [create-comp]]
-            [respo-ui.style :as ui]
+  (:require [respo.macros :refer [defcomp list-> div <> span]]
+            [respo-ui.core :as ui]
             [hsl.core :refer [hsl]]))
+
+(defn on-backdrop [e dispatch!] (dispatch! :popup/drop nil))
 
 (def style-box
   {:background-color (hsl 0 0 100),
@@ -12,8 +13,6 @@
    :transition-timing-function "ease-in-out",
    :transition-duration "400ms",
    :border-radius "2px"})
-
-(defn on-backdrop [e dispatch!] (dispatch! :popup/drop nil))
 
 (def style-theme
   (merge
@@ -36,7 +35,7 @@
              :transform "scale(1)",
              :width (.-innerWidth js/window),
              :height (.-innerHeight js/window)}),
-    :on {:click on-backdrop}}
+    :on-click on-backdrop}
    (div
     {:style (merge
              style-box
@@ -45,7 +44,7 @@
               :background-color (hsl 0 0 100),
               :padding 16,
               :opacity 1}),
-     :on {:click (fn [e dispatch!] )}}
+     :on-click (fn [e dispatch!] )}
     (render-popup popup))))
 
 (defn render-popover [popup render-popup]
@@ -66,7 +65,7 @@
 (defcomp
  comp-popup-stack
  (popups inside-popup)
- (div
+ (list->
   {}
   (seq
    (conj

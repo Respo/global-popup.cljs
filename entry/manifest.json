@@ -1,9 +1,9 @@
 {
-  "short_name": "CoWorkflow",
-  "name": "CoWorkflow",
+  "short_name": "Respo Global Popup",
+  "name": "Respo Global Popup",
   "icons": [
     {
-      "src": "http://cdn.tiye.me/logo/mvc-works.png",
+      "src": "http://cdn.tiye.me/logo/respo.png",
       "sizes": "320x320"
     }
   ],

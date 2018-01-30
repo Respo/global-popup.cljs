@@ -1,9 +1,8 @@
 
 (ns global-popup.comp.launcher
-  (:require-macros [respo.macros :refer [defcomp <> div span]])
-  (:require [respo.core :refer [create-comp]] [respo-ui.style :as ui]))
+  (:require [respo.macros :refer [defcomp <> div span]] [respo-ui.core :as ui]))
 
-(def style-bar {:padding "8px 16px"})
+(defn on-modal-add [e dispatch!] (dispatch! :popup/add {:type :modal, :name :demo}))
 
 (defn on-popover-add [e dispatch!]
   (let [event (:original-event e)]
@@ -14,16 +13,14 @@
       :name :demo,
       :position {:x (.-clientX event), :y (.-clientY event), :w 320, :h 160}})))
 
-(defn on-modal-add [e dispatch!] (dispatch! :popup/add {:type :modal, :name :demo}))
+(def style-bar {:padding "8px 16px"})
 
 (defcomp
  comp-launcher
  ()
  (div
   {}
+  (div {:style style-bar} (div {:style ui/button, :on-click on-modal-add} (<> "add modal")))
   (div
    {:style style-bar}
-   (div {:style ui/button, :on {:click on-modal-add}} (<> "add modal")))
-  (div
-   {:style style-bar}
-   (div {:style ui/button, :on {:click on-popover-add}} (<> "add popup")))))
+   (div {:style ui/button, :on-click on-popover-add} (<> "add popup")))))

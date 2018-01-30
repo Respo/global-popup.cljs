@@ -11,7 +11,8 @@
             [reel.core :refer [reel-updater refresh-reel listen-devtools!]]
             [reel.schema :as reel-schema]))
 
-(def ssr? (some? (js/document.querySelector "meta.respo-ssr")))
+(defonce *reel
+  (atom (-> reel-schema/reel (assoc :base schema/store) (assoc :store schema/store))))
 
 (defn updater [store op op-data op-id]
   (case op
@@ -21,9 +22,6 @@
     :popup/clear-float (popup/clear-float store op-data op-id)
     store))
 
-(defonce *reel
-  (atom (-> reel-schema/reel (assoc :base schema/store) (assoc :store schema/store))))
-
 (defn dispatch! [op op-data]
   (println "Dispatch!" op op-data)
   (let [op-id (id!), next-reel (reel-updater updater @*reel op op-data op-id)]
@@ -32,6 +30,8 @@
 (def mount-target (.querySelector js/document ".app"))
 
 (defn render-app! [renderer] (renderer mount-target (comp-container @*reel) dispatch!))
+
+(def ssr? (some? (js/document.querySelector "meta.respo-ssr")))
 
 (defn main! []
   (if ssr? (render-app! realize-ssr!))

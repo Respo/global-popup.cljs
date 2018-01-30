@@ -11,11 +11,11 @@
      (let [stable-popups (clear-floating popups)]
        (conj stable-popups (-> schema/popup (merge op-data) (assoc :id op-id)))))))
 
+(defn clear-float [store op-data op-id] (update store :popups clear-floating))
+
 (defn drop-one [store op-data op-id]
   (update
    store
    :popups
    (fn [popups]
      (if (empty? popups) popups (let [len (count popups)] (subvec popups 0 (dec len)))))))
-
-(defn clear-float [store op-data op-id] (update store :popups clear-floating))
