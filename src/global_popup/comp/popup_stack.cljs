@@ -1,6 +1,6 @@
 
 (ns global-popup.comp.popup-stack
-  (:require [respo.macros :refer [defcomp list-> div <> span]]
+  (:require [respo.core :refer [defcomp list-> div <> span]]
             [respo-ui.core :as ui]
             [hsl.core :refer [hsl]]))
 
@@ -75,7 +75,6 @@
             [idx
              (case (:type popup)
                :popover (render-popover popup inside-popup)
-               :modal (render-modal popup inside-popup)
-               nil)]))
+               :modal (render-modal popup inside-popup))]))
          (into []))
     [(count popups) (div {:style (merge style-theme)} (div {:style (merge style-box)}))]))))

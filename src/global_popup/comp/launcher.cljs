@@ -1,6 +1,6 @@
 
 (ns global-popup.comp.launcher
-  (:require [respo.macros :refer [defcomp <> div span]] [respo-ui.core :as ui]))
+  (:require [respo.core :refer [defcomp <> div span]] [respo-ui.core :as ui]))
 
 (defn on-modal-add [e dispatch!] (dispatch! :popup/add {:type :modal, :name :demo}))
 

@@ -1,7 +1,6 @@
 
 (ns global-popup.router.popup
-  (:require-macros [respo.macros :refer [defcomp <> div span]])
-  (:require [respo.core :refer [create-comp]]
+  (:require [respo.core :refer [defcomp <> div span create-comp]]
             [global-popup.comp.launcher :refer [comp-launcher]]))
 
 (defn inside-modal [popup]

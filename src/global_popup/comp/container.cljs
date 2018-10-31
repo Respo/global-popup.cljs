@@ -2,7 +2,7 @@
 (ns global-popup.comp.container
   (:require [hsl.core :refer [hsl]]
             [respo-ui.core :as ui]
-            [respo.macros :refer [defcomp <> cursor-> div span]]
+            [respo.core :refer [defcomp <> cursor-> div span]]
             [respo.comp.space :refer [=<]]
             [global-popup.comp.popup-stack :refer [comp-popup-stack]]
             [respo-value.comp.value :refer [comp-value]]

@@ -7,9 +7,10 @@
             [global-popup.updater.popup :as popup]
             [global-popup.schema :as schema]
             [global-popup.util :refer [gen-id!]]
-            [reel.util :refer [id!]]
-            [reel.core :refer [reel-updater refresh-reel listen-devtools!]]
-            [reel.schema :as reel-schema]))
+            [reel.core :refer [reel-updater refresh-reel]]
+            [reel.util :refer [listen-devtools!]]
+            [reel.schema :as reel-schema]
+            ["shortid" :as shortid]))
 
 (defonce *reel
   (atom (-> reel-schema/reel (assoc :base schema/store) (assoc :store schema/store))))
@@ -24,8 +25,7 @@
 
 (defn dispatch! [op op-data]
   (println "Dispatch!" op op-data)
-  (let [op-id (id!), next-reel (reel-updater updater @*reel op op-data op-id)]
-    (reset! *reel next-reel)))
+  (let [next-reel (reel-updater updater @*reel op op-data)] (reset! *reel next-reel)))
 
 (def mount-target (.querySelector js/document ".app"))
 
@@ -49,5 +49,3 @@
   (clear-cache!)
   (reset! *reel (refresh-reel @*reel schema/store updater))
   (println "code update."))
-
-(set! (.-onload js/window) main!)
